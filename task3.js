@@ -55,9 +55,14 @@ function numberOfNodes(src){
     return nodes;
 }
 
-console.log(sumFullStructure(data));
-console.log(deepestLevel(data))
-console.log(numberOfNodes(data))
+function nodesStats(src){
+    let fullStructureSum = sumFullStructure(data);
+    let deepestLevelReached = deepestLevel(data);
+    let amountOfNodes = numberOfNodes(data);
+    return "The sum of the full structure is " + fullStructureSum + ", the deepest level of the structure is " + deepestLevelReached + " and the amount of nodes is " + amountOfNodes + ".";
+}
+
+console.log(nodesStats(data));
 
 /*
 tasks:
