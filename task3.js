@@ -21,7 +21,30 @@ function sumFullStructure(src){
     return sumOfStructure;
 }
 
+function deepestLevel(src){
+    let stringifiedSource = src.toString();
+    
+    let currentLevel = -1;
+    let highestLevel = 0;
+
+    for(let i = 0; i < stringifiedSource.length; i++){
+        if(stringifiedSource[i] == "{"){
+            currentLevel += 1;
+            if(currentLevel > highestLevel){
+                highestLevel = currentLevel;
+            }
+        } else if(stringifiedSource[i] == "}"){
+            currentLevel -= 1;
+        }
+    }
+
+    return highestLevel;
+}
+
+
+
 console.log(sumFullStructure(data));
+console.log(deepestLevel(data))
 
 /*
 tasks:
