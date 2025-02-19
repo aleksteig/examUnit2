@@ -41,10 +41,23 @@ function deepestLevel(src){
     return highestLevel;
 }
 
+function numberOfNodes(src){
+    let stringifiedSource = src.toString();
+    
+    let nodes = 0;
+    
+    for(let i = 0; i < stringifiedSource.length; i++){
+        if(stringifiedSource[i] == "{"){
+            nodes += 1;
+        }
+    }
 
+    return nodes;
+}
 
 console.log(sumFullStructure(data));
 console.log(deepestLevel(data))
+console.log(numberOfNodes(data))
 
 /*
 tasks:
