@@ -8,73 +8,92 @@ Create the following functions:
 - A function that returns the area of a circle given the radius.
 - A function that returns a greeting, given a name.
 */
-const listOfFunctions = {
+
+const listOfFunctions = [
     
-    function1: function squareNumber(num){
+    function squareNumber(num){
+
+        if(typeof(num) != "number"){
+            return "NaN";
+        }
+
         return num**2;
     },
 
-    function2: function inchesToMillimeters(num){
+    function inchesToMillimeters(num){
+
+        if(typeof(num) != "number"){
+            return "NaN";
+        }
+
         return num * 25.4;
     },
 
-    function3: function rootOfNumber(num){
+    function rootOfNumber(num){
     
+        if(typeof(num) != "number"){
+            return "NaN";
+        }
+
         if(num < 0){
             return undefined;
         }
-    
+
         return Math.sqrt(num);
     },
     
-    function4: function cubeNumber(num){
+    function cubeNumber(num){
+
+        if(typeof(num) != "number"){
+            return "NaN";
+        }
+
         return num**3;
     },
 
-    function5: function areaOfCircleGivenRadius(rad){
+    function areaOfCircleGivenRadius(rad){
+
+        if(typeof(rad) != "number"){
+            return "NaN";
+        }
+
         return Math.PI * (rad ** 2);
     },
 
-    function6: function greetingGivenName(name){
+    function greetingGivenName(name){
         if(typeof(name) != "string"){
-            return console.log("Only string for this function");
+            return "Only string for this function";
         } else {
             return `Hello ${name}`
         }
     },
-}
+]
 
 const acceptedFnNames = ["square", "inchToMm", "root", "cube", "circle", "greeting"];
 
 function pickFromFunctionList(arg, fnName){
     
-    if(typeof(arg) == "string"){
-        return listOfFunctions.function6(arg);
-    }
+    let counterForNotInAcceptedNames = 0;
 
-    let id = null;
-    for(let i = 0; i < acceptedFnNames.length; i++){
-        if(fnName == acceptedFnNames[i]){
-            id = i;
+    if(typeof(arg) == "string"){
+        if(fnName != "greeting"){
+            return "Use function name 'greeting' if you want to use strings"
+        } else {
+            return listOfFunctions[5](arg);
         }
     }
 
-    if(id == 0){
-        return listOfFunctions.function1(arg);
-    } else if (id == 1) {
-        return listOfFunctions.function2(arg);
-    } else if (id == 2) {
-        return listOfFunctions.function3(arg);
-    } else if (id == 3) {
-        return listOfFunctions.function4(arg);
-    } else if (id == 4) {
-        return listOfFunctions.function5(arg);
-    } else {
-        return console.log("The only accepted function names are: " + acceptedFnNames)
+    for(let i = 0; i < acceptedFnNames.length; i++){
+        if(fnName == acceptedFnNames[i]){
+            return listOfFunctions[i](arg);
+        } else {
+            counterForNotInAcceptedNames += 1;
+        }
     }
 
+    if(counterForNotInAcceptedNames >= 5){
+        return "The only accepted function names are: " + acceptedFnNames;
+    }
 }
 
 console.log(pickFromFunctionList(7, "greeting"));
-
-//console.log(fnIDs[0]);
