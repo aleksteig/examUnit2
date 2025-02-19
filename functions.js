@@ -96,4 +96,4 @@ function pickFromFunctionList(arg, fnName){
     }
 }
 
-console.log(pickFromFunctionList(7, "greeting"));
+console.log(pickFromFunctionList(Infinity, "greeting"));

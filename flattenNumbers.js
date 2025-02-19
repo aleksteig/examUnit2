@@ -1,7 +1,6 @@
 import fs from 'fs';
 
-const data = fs.readFileSync('example_files/arrays.json',
-    { encoding: 'utf8', flag: 'r' });
+const data = fs.readFileSync('example_files/arrays.json', { encoding: 'utf8', flag: 'r' });
 
 
 function flattenNumbersInList(src){
