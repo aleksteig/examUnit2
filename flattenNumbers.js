@@ -1,3 +1,7 @@
+import fs from 'fs';
+
+const data = fs.readFileSync('example_files/arrays.json',
+    { encoding: 'utf8', flag: 'r' });
 
 
 function flattenNumbersInList(src){
@@ -8,6 +12,12 @@ function flattenNumbersInList(src){
 
     for(let i = 0; i < stringifiedSource.length; i++){
         if(stringifiedSource[i] != !/^[0-9]*$/ && stringifiedSource[i] != "," && stringifiedSource[i] != "[" && stringifiedSource[i] != "]"){
+            
+            test += stringifiedSource[i];
+            
+        }
+
+        if(stringifiedSource[i] == "0"){
             test += stringifiedSource[i];
         }
 
@@ -30,4 +40,4 @@ function flattenNumbersInList(src){
 
 }
 
-console.log(flattenNumbersInList("[112, 2132, 1323, 1234, 31235, 3216, 231327]"));
+console.log(flattenNumbersInList(data));
