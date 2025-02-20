@@ -66,21 +66,29 @@ function booksWrittenByAuthorsWithTInTheirName(data){
     let tCounter = 0;
     let newListOfTAuthors = [];
     let pushOk = 0;
+    let byCounter = 0;
     for(let i = 0; i < authorsWithTInTheirName.length; i++){
         let tempAuthor = authorsWithTInTheirName[i];
         for(let i = 0; i < tempAuthor.length; i++){
-            if(tempAuthor[i] == "t" || "T"){
+            if(tempAuthor[i].toLowerCase() == "t"){
                 tCounter++;
             }
             if(tempAuthor[i] == "(" && tCounter > 0){
                 pushOk++;
             }
+            if(tempAuthor[i] == "y" && tempAuthor[i-1] == "b"){
+                byCounter++;
+            }
         }
         if(pushOk > 0){
             newListOfTAuthors.push(authorsWithTInTheirName[i]);
         }
+        if(byCounter == 0){
+            newListOfTAuthors.push(authorsWithTInTheirName[i]);
+        }
         tCounter = 0;
         pushOk = 0;
+        byCounter = 0;
     }
 
     return newListOfTAuthors;
