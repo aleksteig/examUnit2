@@ -1,0 +1,92 @@
+/*
+Tasks:
+In the file `books.json` there is a listing of books. Write the functions to
+- Return only books starting with `The`
+- Return only books written by authors with a `t` in their name
+- The number of books written after `1992`
+- The number of books written before `2004`
+- Return the isbn number of all the books for a given author.
+- List books alphabetically assending or decendig 
+- List books chronologically assending or decendig 
+- List books grouped by author last name
+- Lits books grouped by author first name
+*/
+
+import fs from 'fs';
+
+const data = fs.readFileSync('example_files/books.json', { encoding: 'utf8', flag: 'r' });
+
+let newData = JSON.parse(data);
+
+
+function booksStartingWithThe(data){
+    let newBookDataList = [];
+    let bookTitles = [];
+    for(let i = 0; i < data.length; i++){
+        newBookDataList.push(Object.values(data[i]));
+    }
+
+    for(let i = 0; i < newBookDataList.length; i++){
+        bookTitles.push(newBookDataList[i][0]);
+    }
+    
+    function filterItems(array, query){
+        return array.filter((element) => element.toLowerCase().includes(query.toLowerCase()));
+    }
+    
+    let booksWithTheInThem = filterItems(bookTitles, "The");
+    let booksThatStartWithThe = [];
+
+    for(let i = 0; i < booksWithTheInThem.length; i++){
+        if(booksWithTheInThem[i][0] == "T" && booksWithTheInThem[i][1] == "h" && booksWithTheInThem[i][2] == "e")
+            booksThatStartWithThe.push(booksWithTheInThem[i]);
+    }
+
+    return booksThatStartWithThe;
+
+}
+
+function booksWrittenByAuthorsWithTInTheirName(data){
+    let newBookDataList = [];
+    let authors = [];
+    for(let i = 0; i < data.length; i++){
+        newBookDataList.push(Object.values(data[i]));
+    }
+
+    for(let i = 0; i < newBookDataList.length; i++){
+        authors.push(newBookDataList[i][2]);
+    }
+    
+    function filterItems(array, query){
+        return array.filter((element) => element.toLowerCase().includes(query.toLowerCase()));
+    }
+    
+    let authorsWithTInTheirName = filterItems(authors, "T");
+
+    let tCounter = 0;
+    let newListOfTAuthors = [];
+    let pushOk = 0;
+    for(let i = 0; i < authorsWithTInTheirName.length; i++){
+        let tempAuthor = authorsWithTInTheirName[i];
+        for(let i = 0; i < tempAuthor.length; i++){
+            if(tempAuthor[i] == "t" || "T"){
+                tCounter++;
+            }
+            if(tempAuthor[i] == "(" && tCounter > 0){
+                pushOk++;
+            }
+        }
+        if(pushOk > 0){
+            newListOfTAuthors.push(authorsWithTInTheirName[i]);
+        }
+        tCounter = 0;
+        pushOk = 0;
+    }
+
+    return newListOfTAuthors;
+}
+
+//console.log(booksStartingWithThe(newData));
+console.log(booksWrittenByAuthorsWithTInTheirName(newData));
+
+//console.log(Object.values(newData));
