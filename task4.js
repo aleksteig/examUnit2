@@ -131,9 +131,11 @@ function numberOfBooksWrittenBefore2004(data){
 
 }
 
-function isbnNumberOfGivenAuthor(data){
+function isbnNumberOfGivenAuthor(data, author){
     let newBookDataList = [];
     let isbnList = [];
+    let givenAuthor = author;
+
     for(let i = 0; i < data.length; i++){
         newBookDataList.push(Object.values(data[i]));
     }
@@ -146,20 +148,52 @@ function isbnNumberOfGivenAuthor(data){
         tempAuthorAndISBNList = [];
     }
 
+    let counter = 0;
     let authorList = [];
     for(let i = 0; i < isbnList.length; i++){
+        let currentAuthor = isbnList[i][0];
+        if(authorList.length < 1){
+            authorList.push(currentAuthor);
+        } else {
+            for(let index = 0; index < authorList.length; index++){
+                if(authorList[index] == currentAuthor){
+                    counter++;
+                }
+            }
+            if(counter == 0){
+                authorList.push(currentAuthor);
+            }
+        }
         
+        counter = 0;
     }
 
-    console.log(isbnList);
+    for(let i = 0; i < authorList.length; i++){
+        if(givenAuthor == authorList[i]){
+            counter++;
+        }
+    }
 
+    let authorsISBNNumbers = [];
+
+    if(counter > 0){
+        for(let i = 0; i < isbnList.length; i++){
+            if(givenAuthor == isbnList[i][0]){
+                authorsISBNNumbers.push(isbnList[i][1]);
+            }
+        }
+    } else {
+        return "The only valid authors are: " + authorList;
+    }
+
+    return authorsISBNNumbers;
 }
 
 //console.log(booksStartingWithThe(newData));
 //console.log(booksWrittenByAuthorsWithTInTheirName(newData));
 //console.log(numberOfBooksWrittenAfter1992(newData));
 //console.log(numberOfBooksWrittenBefore2004(newData));
-console.log(isbnNumberOfGivenAuthor(newData));
+console.log(isbnNumberOfGivenAuthor(newData, "Terry Pratchett"));
 
 
 /*
