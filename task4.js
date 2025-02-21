@@ -1,23 +1,8 @@
-/*
-Tasks:
-In the file `books.json` there is a listing of books. Write the functions to
-- Return only books starting with `The`
-- Return only books written by authors with a `t` in their name
-- The number of books written after `1992`
-- The number of books written before `2004`
-- Return the isbn number of all the books for a given author.
-- List books alphabetically assending or decendig 
-- List books chronologically assending or decendig 
-- List books grouped by author last name
-- Lits books grouped by author first name
-*/
-
 import fs from 'fs';
 
 const data = fs.readFileSync('example_files/books.json', { encoding: 'utf8', flag: 'r' });
 
 let newData = JSON.parse(data);
-
 
 function booksStartingWithThe(data){
     let newBookDataList = [];
@@ -146,7 +131,47 @@ function numberOfBooksWrittenBefore2004(data){
 
 }
 
+function isbnNumberOfGivenAuthor(data){
+    let newBookDataList = [];
+    let isbnList = [];
+    for(let i = 0; i < data.length; i++){
+        newBookDataList.push(Object.values(data[i]));
+    }
+
+    let tempAuthorAndISBNList = [];
+    for(let i = 0; i < newBookDataList.length; i++){
+        tempAuthorAndISBNList.push(newBookDataList[i][2]);
+        tempAuthorAndISBNList.push(newBookDataList[i][3]);
+        isbnList.push(tempAuthorAndISBNList);
+        tempAuthorAndISBNList = [];
+    }
+
+    let authorList = [];
+    for(let i = 0; i < isbnList.length; i++){
+        
+    }
+
+    console.log(isbnList);
+
+}
+
 //console.log(booksStartingWithThe(newData));
 //console.log(booksWrittenByAuthorsWithTInTheirName(newData));
 //console.log(numberOfBooksWrittenAfter1992(newData));
-console.log(numberOfBooksWrittenBefore2004(newData));
+//console.log(numberOfBooksWrittenBefore2004(newData));
+console.log(isbnNumberOfGivenAuthor(newData));
+
+
+/*
+Tasks:
+In the file `books.json` there is a listing of books. Write the functions to
+- Return only books starting with `The`
+- Return only books written by authors with a `t` in their name
+- The number of books written after `1992`
+- The number of books written before `2004`
+- Return the isbn number of all the books for a given author.
+- List books alphabetically assending or decendig 
+- List books chronologically assending or decendig 
+- List books grouped by author last name
+- Lits books grouped by author first name
+*/

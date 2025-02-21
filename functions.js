@@ -39,7 +39,14 @@ const listOfFunctions = [
             return undefined;
         }
 
-        return Math.sqrt(num);
+        let x,
+        x1 = num / 2;
+          
+        do {
+            x = x1;
+            x1 = (x + (num / x)) / 2;
+        } while (x !== x1);
+        return x;
     },
     
     function cubeNumber(num){
@@ -57,7 +64,7 @@ const listOfFunctions = [
             return "NaN";
         }
 
-        return Math.PI * (rad ** 2);
+        return 3.14 * (rad ** 2);
     },
 
     function greetingGivenName(name){
@@ -96,4 +103,4 @@ function pickFromFunctionList(arg, fnName){
     }
 }
 
-console.log(pickFromFunctionList(Infinity, "greeting"));
+console.log(pickFromFunctionList(64, "root"));
