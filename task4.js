@@ -215,12 +215,79 @@ function booksAlphabetically(data, ascendingOrDescending){
 
 }
 
+function booksChronologically(data, ascendingOrDescending){
+    let newBookDataList = [];
+    let yearOfPublishing = [];
+    for(let i = 0; i < data.length; i++){
+        newBookDataList.push(Object.values(data[i]));
+    }
+
+    for(let i = 0; i < newBookDataList.length; i++){
+        yearOfPublishing.push(newBookDataList[i][1]);
+    }
+
+    
+
+    let ascendingYearOfRelease = yearOfPublishing.sort();
+
+    let tempBookTitleAndYearList = [];
+    let bookTitleAndYearList = [];
+
+    for(let i = 0; i < newBookDataList.length; i++){
+        tempBookTitleAndYearList.push(newBookDataList[i][0]);
+        tempBookTitleAndYearList.push(newBookDataList[i][1]);
+        bookTitleAndYearList.push(tempBookTitleAndYearList);
+        tempBookTitleAndYearList = [];
+    }
+
+    let listOfChronologicallyAscendingBookTitles = [];
+
+    let counter = 0;
+
+    for(let i = 0; i < ascendingYearOfRelease.length; i++){
+        let currentYear = ascendingYearOfRelease[i];
+        for(let i = 0; i < bookTitleAndYearList.length; i++){
+            let currentBookYear = bookTitleAndYearList[i][1];
+            let currentBookTitle = bookTitleAndYearList[i][0];
+            if(currentBookYear == currentYear){
+                if(listOfChronologicallyAscendingBookTitles.length == 0){
+                    listOfChronologicallyAscendingBookTitles.push(currentBookTitle)
+                } else {
+                    for(let index = 0; index < listOfChronologicallyAscendingBookTitles.length; index++){
+                        if(listOfChronologicallyAscendingBookTitles[index] == currentBookTitle){
+                            counter++;
+                        }
+                    }
+                    if(counter == 0){
+                        listOfChronologicallyAscendingBookTitles.push(currentBookTitle)
+                    }
+                    counter = 0;
+                }
+            }
+        }
+    }
+
+    let listOfChronologicallyDescendingBookTitles = [];
+
+    for(let i = 0; i < listOfChronologicallyAscendingBookTitles.length; i++){
+        listOfChronologicallyDescendingBookTitles.unshift(listOfChronologicallyAscendingBookTitles[i])
+    }
+
+    if(ascendingOrDescending.toLowerCase() == "ascending"){
+        return listOfChronologicallyAscendingBookTitles;
+    } else if (ascendingOrDescending.toLowerCase() == "descending"){
+        return listOfChronologicallyDescendingBookTitles;
+    }
+}
+
 //console.log(booksStartingWithThe(newData));
 //console.log(booksWrittenByAuthorsWithTInTheirName(newData));
 //console.log(numberOfBooksWrittenAfter1992(newData));
 //console.log(numberOfBooksWrittenBefore2004(newData));
 //console.log(isbnNumberOfGivenAuthor(newData, "Terry Pratchett"));
-console.log(booksAlphabetically(newData, "descending"))
+//console.log(booksAlphabetically(newData, "ascending"))
+console.log(booksChronologically(newData, "ascending"));
+
 
 /*
 Tasks:
