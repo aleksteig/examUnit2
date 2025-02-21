@@ -280,13 +280,17 @@ function booksChronologically(data, ascendingOrDescending){
     }
 }
 
+function booksGroupedByAuthorsLastName(data){
+
+}
+
 //console.log(booksStartingWithThe(newData));
 //console.log(booksWrittenByAuthorsWithTInTheirName(newData));
 //console.log(numberOfBooksWrittenAfter1992(newData));
 //console.log(numberOfBooksWrittenBefore2004(newData));
 //console.log(isbnNumberOfGivenAuthor(newData, "Terry Pratchett"));
 //console.log(booksAlphabetically(newData, "ascending"))
-console.log(booksChronologically(newData, "ascending"));
+//console.log(booksChronologically(newData, "ascending"));
 
 
 /*
@@ -300,5 +304,5 @@ In the file `books.json` there is a listing of books. Write the functions to
 - List books alphabetically assending or decendig
 - List books chronologically assending or decendig
 - List books grouped by author last name
-- Lits books grouped by author first name
+- List books grouped by author first name
 */

@@ -24,7 +24,7 @@ function sumFullStructure(src){
 function deepestLevel(src){
     let stringifiedSource = src.toString();
     
-    let currentLevel = -1;
+    let currentLevel = 0;
     let highestLevel = 0;
 
     for(let i = 0; i < stringifiedSource.length; i++){
