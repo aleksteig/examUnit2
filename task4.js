@@ -189,12 +189,38 @@ function isbnNumberOfGivenAuthor(data, author){
     return authorsISBNNumbers;
 }
 
+function booksAlphabetically(data, ascendingOrDescending){
+    let newBookDataList = [];
+    let bookTitles = [];
+    for(let i = 0; i < data.length; i++){
+        newBookDataList.push(Object.values(data[i]));
+    }
+
+    for(let i = 0; i < newBookDataList.length; i++){
+        bookTitles.push(newBookDataList[i][0]);
+    }
+
+    let ascendingBookTitles = bookTitles.sort();
+    let descendingBookTitles = [];
+
+    for(let i = 0; i < ascendingBookTitles.length; i++){
+        descendingBookTitles.unshift(ascendingBookTitles[i])
+    }
+
+    if(ascendingOrDescending.toLowerCase() == "ascending"){
+        return ascendingBookTitles;
+    } else if (ascendingOrDescending.toLowerCase() == "descending"){
+        return descendingBookTitles;
+    }
+
+}
+
 //console.log(booksStartingWithThe(newData));
 //console.log(booksWrittenByAuthorsWithTInTheirName(newData));
 //console.log(numberOfBooksWrittenAfter1992(newData));
 //console.log(numberOfBooksWrittenBefore2004(newData));
-console.log(isbnNumberOfGivenAuthor(newData, "Terry Pratchett"));
-
+//console.log(isbnNumberOfGivenAuthor(newData, "Terry Pratchett"));
+console.log(booksAlphabetically(newData, "descending"))
 
 /*
 Tasks:
@@ -204,8 +230,8 @@ In the file `books.json` there is a listing of books. Write the functions to
 - The number of books written after `1992`
 - The number of books written before `2004`
 - Return the isbn number of all the books for a given author.
-- List books alphabetically assending or decendig 
-- List books chronologically assending or decendig 
+- List books alphabetically assending or decendig
+- List books chronologically assending or decendig
 - List books grouped by author last name
 - Lits books grouped by author first name
 */
