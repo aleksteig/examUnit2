@@ -120,7 +120,33 @@ function numberOfBooksWrittenAfter1992(data){
 
 }
 
+function numberOfBooksWrittenBefore2004(data){
+    let newBookDataList = [];
+    let dateOfReleaseList = [];
+    for(let i = 0; i < data.length; i++){
+        newBookDataList.push(Object.values(data[i]));
+    }
+
+    for(let i = 0; i < newBookDataList.length; i++){
+        dateOfReleaseList.push(newBookDataList[i][1]);
+    }
+
+    let before2004 = 2004;
+    let newListOfDateOfReleaseList = [];
+
+    for(let i = 0; i < dateOfReleaseList.length; i++){
+        let tempWord = dateOfReleaseList[i];
+
+        if(parseInt(tempWord) < before2004){
+            newListOfDateOfReleaseList.push(tempWord);
+        }
+    }
+
+    return newListOfDateOfReleaseList.length
+
+}
+
 //console.log(booksStartingWithThe(newData));
 //console.log(booksWrittenByAuthorsWithTInTheirName(newData));
 //console.log(numberOfBooksWrittenAfter1992(newData));
-
+console.log(numberOfBooksWrittenBefore2004(newData));
