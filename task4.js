@@ -77,7 +77,40 @@ function booksWrittenByAuthorsWithTInTheirName(data){
         byCounter = 0;
     }
 
-    return newListOfTAuthors;
+    newListOfTAuthors
+
+    let noDuplicateAuthors = [];
+    let notADuplicateAuthorCounter = 0;
+    for(let i = 0; i < newListOfTAuthors.length; i++){
+        let currentAuthor = newListOfTAuthors[i];
+        if(noDuplicateAuthors.length == 0){
+            noDuplicateAuthors.push(currentAuthor)
+        }
+        for(let i = 0; i < noDuplicateAuthors.length; i++){
+            if(currentAuthor != noDuplicateAuthors[i]){
+                notADuplicateAuthorCounter++;
+            }
+
+            if(notADuplicateAuthorCounter == noDuplicateAuthors.length){
+                noDuplicateAuthors.push(currentAuthor);
+            }
+        }
+        notADuplicateAuthorCounter = 0;
+    }
+
+    let listOfBooksWrittenByAnAuthorWithTInTheirName = [];
+
+    for(let i = 0; i < newBookDataList.length; i++){
+        let currentAuthorCheck = newBookDataList[i][2];
+        let currentBookInList = newBookDataList[i][0]
+        for(let i = 0; i < noDuplicateAuthors.length; i++){
+            if(currentAuthorCheck == noDuplicateAuthors[i]){
+                listOfBooksWrittenByAnAuthorWithTInTheirName.push(currentBookInList);
+            }
+        }
+    }
+
+    return listOfBooksWrittenByAnAuthorWithTInTheirName;
 }
 
 function numberOfBooksWrittenAfter1992(data){
@@ -619,7 +652,7 @@ function booksGroupedByAuthorsFirstName(data){
 
 const tests = test("My books are a mess functions");
 
-const exampleData = `[{
+const exampleData = [{
     "title": "Norse Mythology",
     "publication_year": 2017,
     "author": "Neil Gaiman",
@@ -768,25 +801,73 @@ const exampleData = `[{
     "publication_year": 2007,
     "author": "Brandon Sanderson",
     "isbn": "978-0765316882"
-}]`;
+}];
 
-const listOfBooksStartingWithThe = [];
+const testListOfBooksStartingWithThe = [
+    "The Shepherd's Crown",
+    'The Book of Disquiet: The Complete Edition',
+    'The Prophet',
+    'The Dhammapada: A New Translation of the Buddhist Classic with Annotations',
+    'The Way of Kings',
+    'The Last Continent',
+    'The Alloy of Law',
+    'The Perdition Score',
+    'The Well of Ascension'
+  ];
 
+const testListOfBooksWrittenByAuthorsWithTInTheirName = 
+[
+    "The Shepherd's Crown",
+    'Night Watch',
+    'The Last Continent',
+    'Good Omens',
+    'Jingo'
+  ];
+
+const testAlphabeticalBookList = [
+    'Ballistic Kiss',
+    'Cytonic',
+    'Dead Set',
+    'Good Omens',
+    'InterWorld',
+    'Jingo',
+    'Killing Pretty',
+    'Metrophage',
+    'Night Watch',
+    'Norse Mythology',
+    'Redshirts',
+    'Sandman Slim',
+    'Shadows of Self',
+    'Steelheart',
+    'The Alloy of Law',
+    'The Book of Disquiet: The Complete Edition',
+    'The Dhammapada: A New Translation of the Buddhist Classic with Annotations',
+    'The Last Continent',
+    'The Perdition Score',
+    'The Prophet',
+    "The Shepherd's Crown",
+    'The Way of Kings',
+    'The Well of Ascension',
+    'Warbreaker',
+    "Zoe's Tale"
+];
+
+const testAlphabeticalBookListReverse = [];
 
 // Valid inputs
-// tests.isListEqual(booksStartingWithThe(exampleData), "aa", "This function should only return books that start with 'The'")
-// tests.isListEqual(booksWrittenByAuthorsWithTInTheirName(), "aa", "This function should only return books that start with 'The'")
-// tests.isListEqual(numberOfBooksWrittenAfter1992(), "aa", "This function should only return books that start with 'The'")
-// tests.isListEqual(numberOfBooksWrittenBefore2004(), "aa", "This function should only return books that start with 'The'")
-// tests.isListEqual(isbnNumberOfGivenAuthor(), "aa", "This function should only return books that start with 'The'")
-// tests.isListEqual(isbnNumberOfGivenAuthor(), "aa", "This function should only return books that start with 'The'")
-// tests.isListEqual(booksAlphabetically(), "aa", "This function should only return books that start with 'The'")
-// tests.isListEqual(booksAlphabetically(), "aa", "This function should only return books that start with 'The'")
-// tests.isListEqual(booksChronologically(), "aa", "This function should only return books that start with 'The'")
-// tests.isListEqual(booksChronologically(), "aa", "This function should only return books that start with 'The'")
-// tests.isListEqual(booksGroupedByAuthorsLastName(), "aa", "This function should only return books that start with 'The'")
-// tests.isListEqual(booksGroupedByAuthorsFirstName(), "aa", "This function should only return books that start with 'The'")
+tests.isListEqual(booksStartingWithThe(exampleData), testListOfBooksStartingWithThe, "This function should only return books that start with 'The'")
+tests.isListEqual(booksWrittenByAuthorsWithTInTheirName(exampleData), testListOfBooksWrittenByAuthorsWithTInTheirName, "This function should give a ")
+tests.isEqual(numberOfBooksWrittenAfter1992(exampleData), 22, "This function should only return books that start with 'The'")
+tests.isEqual(numberOfBooksWrittenBefore2004(exampleData), 7, "This function should only return books that start with 'The'")
+tests.isListEqual(isbnNumberOfGivenAuthor(exampleData, "Neil Gaiman"), [ '0-393-60909-X' ], "This function should only return books that start with 'The'")
+tests.isListEqual(isbnNumberOfGivenAuthor(exampleData, "Terry Pratchett"), [ '0-857-53286-5', '0-385-60265-0', '0-575-06540-0', '0-575-06411-0' ], "This function should only return books that start with 'The'")
+tests.isListEqual(booksAlphabetically(exampleData, "ascending"), testAlphabeticalBookList, "This function should only return books that start with 'The'")
+// tests.isListEqual(booksAlphabetically(exampleData, "descending"), "aa", "This function should only return books that start with 'The'")
+// tests.isListEqual(booksChronologically(exampleData, "ascending"), "aa", "This function should only return books that start with 'The'")
+// tests.isListEqual(booksChronologically(exampleData, "descending"), "aa", "This function should only return books that start with 'The'")
+// tests.isListEqual(booksGroupedByAuthorsLastName(exampleData), "aa", "This function should only return books that start with 'The'")
+// tests.isListEqual(booksGroupedByAuthorsFirstName(exampleData), "aa", "This function should only return books that start with 'The'")
 
-console.log(booksStartingWithThe(exampleData));
+console.log(booksWrittenByAuthorsWithTInTheirName(exampleData));
 
 //#endregion
