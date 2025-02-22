@@ -1,7 +1,7 @@
 import fs from 'fs';
+import test from './test.mjs';
 
 const data = fs.readFileSync('example_files/arrays.json', { encoding: 'utf8', flag: 'r' });
-
 
 function flattenNumbersInList(src){
     let stringifiedSource = src.toString();
@@ -34,9 +34,30 @@ function flattenNumbersInList(src){
             } 
         }
     }
+
+    console.log(newListOfNumbers)
     
     return newListOfNumbers;
 
 }
 
 console.log(flattenNumbersInList(data));
+
+
+//#region Tests ---------------------------------------------------------------------------------------------------------------------
+
+const tests = test("List of functions tests");
+
+let newRandomList = [1, 23, 45, 78, 91, 2, 54, 8, 0, 91];
+let result = flattenNumbersInList(newRandomList);
+// Valid inputs
+tests.isEqual(flattenNumbersInList(newRandomList), result, "The list should return as a list that just lists out the number in one list rather than multiple if multiple are given")
+
+
+// Invalid inputs
+
+
+// Edge cases
+
+
+//#endregion
