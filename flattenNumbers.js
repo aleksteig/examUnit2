@@ -10,10 +10,9 @@ function flattenNumbersInList(src){
     let newListOfNumbers = [];
 
     for(let i = 0; i < stringifiedSource.length; i++){
+        
         if(stringifiedSource[i] != !/^[0-9]*$/ && stringifiedSource[i] != "," && stringifiedSource[i] != "[" && stringifiedSource[i] != "]"){
-            
             test += stringifiedSource[i];
-            
         }
 
         if(stringifiedSource[i] == "0"){
@@ -35,10 +34,7 @@ function flattenNumbersInList(src){
         }
     }
 
-    console.log(newListOfNumbers)
-    
     return newListOfNumbers;
-
 }
 
 console.log(flattenNumbersInList(data));

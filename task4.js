@@ -281,7 +281,185 @@ function booksChronologically(data, ascendingOrDescending){
 }
 
 function booksGroupedByAuthorsLastName(data){
+    let newBookDataList = [];
+    let bookTitlesAndAuthors = [];
+    for(let i = 0; i < data.length; i++){
+        newBookDataList.push(Object.values(data[i]));
+    }
 
+    let tempBookAndAuthors = [];
+    for(let i = 0; i < newBookDataList.length; i++){
+        tempBookAndAuthors.push(newBookDataList[i][0]);
+        tempBookAndAuthors.push(newBookDataList[i][2]);
+        bookTitlesAndAuthors.push(tempBookAndAuthors);
+        tempBookAndAuthors = [];
+    }
+
+    let lastNameAuthors = [];
+    let tempLastNameAuthor = "";
+    let translatedByCheck = "";
+    let spaceCounter = 0;
+    let andCounter = 0;
+    let lastCharacterOfLastNameSwitch = 0;
+
+    for(let i = 0; i < bookTitlesAndAuthors.length; i++){
+        let tempAuthor = bookTitlesAndAuthors[i][1];
+        for(let i = 0; i < tempAuthor.length; i++){
+
+            translatedByCheck += tempAuthor[i];
+
+            if(tempAuthor[i] == ' '){
+                spaceCounter++;
+            }
+            if(tempAuthor[i] == "&"){
+                andCounter++;
+            }
+
+            if(tempAuthor[i+1] == "&" || tempAuthor[i-1] == "&" || tempAuthor[i-1] == "d" && tempAuthor[i+1] == "T"){
+                tempLastNameAuthor += " ";
+            }
+
+            if(spaceCounter > 0 && lastCharacterOfLastNameSwitch == 0 && tempAuthor[i] != " "){
+                tempLastNameAuthor += tempAuthor[i];
+            }
+
+            if(tempAuthor[i] == " " && tempAuthor[i-1] == "&"){
+                spaceCounter = 0;
+            }
+
+            if(translatedByCheck == "Translated by "){
+                tempLastNameAuthor = "";
+                spaceCounter = 0;
+                for(let i = 0; i < tempAuthor.length; i++){
+                    if(tempAuthor[i] == " "){
+                        spaceCounter++;
+                    }
+                    if(spaceCounter > 2 && tempAuthor[i] != " "){
+                        tempLastNameAuthor += tempAuthor[i];
+                    }
+                    lastCharacterOfLastNameSwitch++;
+                }
+            }
+
+            if(tempAuthor[i+2] == "(" && spaceCounter == 0){
+                spaceCounter = 0;
+                for(let i = 0; i < tempAuthor.length; i++){
+                    if(tempAuthor[i] == " "){
+                        spaceCounter++;
+                    }
+                    if(spaceCounter == 0 && lastCharacterOfLastNameSwitch == 0){
+                        tempLastNameAuthor += tempAuthor[i];
+                    }
+                    if(tempAuthor[i+2] == "("){
+                        lastCharacterOfLastNameSwitch++;
+                    }
+                }
+            } else if(tempAuthor[i+2] == "("){
+                lastCharacterOfLastNameSwitch++;
+            }
+
+            if(andCounter == 0 && spaceCounter == 2 && tempAuthor[i+2] != "(" && tempAuthor[0] == "H"){
+                spaceCounter = 0;
+                tempLastNameAuthor = "";
+                for(let i = 0; i < tempAuthor.length; i++){
+                    if(tempAuthor[i] == " "){
+                        spaceCounter++;
+                    }
+                    if(spaceCounter > 1 && tempAuthor[i] != " "){
+                        tempLastNameAuthor += tempAuthor[i];
+                    }
+                    lastCharacterOfLastNameSwitch++;
+                }
+            }
+
+        }
+        spaceCounter = 0;
+        lastCharacterOfLastNameSwitch = 0;
+        andCounter = 0;
+        lastNameAuthors.push(tempLastNameAuthor);
+        tempLastNameAuthor = "";
+        translatedByCheck = "";
+    }
+
+    let noDuplicateLastNamesList = [];
+    let notADuplicateAuthorCounter = 0;
+    for(let i = 0; i < lastNameAuthors.length; i++){
+        let currentLastNameAuthor = lastNameAuthors[i];
+        if(noDuplicateLastNamesList.length == 0){
+            noDuplicateLastNamesList.push(currentLastNameAuthor)
+        }
+        for(let i = 0; i < noDuplicateLastNamesList.length; i++){
+            if(currentLastNameAuthor != noDuplicateLastNamesList[i]){
+                notADuplicateAuthorCounter++;
+            }
+
+            if(notADuplicateAuthorCounter == noDuplicateLastNamesList.length){
+                noDuplicateLastNamesList.push(currentLastNameAuthor);
+            }
+        }
+        notADuplicateAuthorCounter = 0;
+    }
+
+    let bookTitleList = [];
+    for(let i = 0; i < bookTitlesAndAuthors.length; i++){
+        bookTitleList.push(bookTitlesAndAuthors[i][0]);
+    }
+
+    let newListOfBookTitlesAndLastNameAuthors = [];
+    let tempAuthorAndBookTitle = [];
+    for(let i = 0; i < bookTitleList.length; i++){
+        tempAuthorAndBookTitle.push(bookTitleList[i]);
+        tempAuthorAndBookTitle.push(lastNameAuthors[i]);
+        newListOfBookTitlesAndLastNameAuthors.push(tempAuthorAndBookTitle);
+        tempAuthorAndBookTitle = [];
+    }
+
+    const listOfBooksGroupedByAuthorNoName = [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+    ]
+
+    for(let i = 0; i < newListOfBookTitlesAndLastNameAuthors.length; i++){
+        let currentAuthorChecked = newListOfBookTitlesAndLastNameAuthors[i][1];
+        let currentBook = newListOfBookTitlesAndLastNameAuthors[i][0]
+        for(let i = 0; i < noDuplicateLastNamesList.length; i++){
+            let currentLastNameAuthor = noDuplicateLastNamesList[i];
+            if(currentAuthorChecked == currentLastNameAuthor){
+                listOfBooksGroupedByAuthorNoName[i].push(currentBook);
+            }
+        }
+    }
+
+    const listOfBooksGroupedByAuthorsLastName = []
+
+    let listPlaceholder = [];
+    for(let i = 0; i < listOfBooksGroupedByAuthorNoName.length; i++){
+        listPlaceholder.push(noDuplicateLastNamesList[i]);
+        listPlaceholder.push(listOfBooksGroupedByAuthorNoName[i]);
+        listOfBooksGroupedByAuthorsLastName.push(listPlaceholder);
+        listPlaceholder = [];
+    }
+
+    return listOfBooksGroupedByAuthorsLastName;
+}
+
+function booksGroupedByAuthorsFirstName(data){
+    
 }
 
 //console.log(booksStartingWithThe(newData));
@@ -291,7 +469,7 @@ function booksGroupedByAuthorsLastName(data){
 //console.log(isbnNumberOfGivenAuthor(newData, "Terry Pratchett"));
 //console.log(booksAlphabetically(newData, "ascending"))
 //console.log(booksChronologically(newData, "ascending"));
-
+//console.log(booksGroupedByAuthorsLastName(newData));
 
 /*
 Tasks:
