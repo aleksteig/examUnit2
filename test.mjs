@@ -6,7 +6,8 @@ function test(description) {
     return {
         isEqual,
         isNotANumber,
-        dosNotThrowError
+        dosNotThrowError,
+        isListEqual
     }
 }
 
@@ -43,6 +44,16 @@ function isNotANumber(received, description) {
 function isEqual(recived, expected, description) {
 
     if (recived === expected) {
+        console.log(`🟢 ${description}`);
+    } else {
+        console.log(`🔴 ${description}. Expected ${expected}, recived ${recived}`);
+    }
+
+}
+
+function isListEqual(recived, expected, description) {
+
+    if (recived == expected) {
         console.log(`🟢 ${description}`);
     } else {
         console.log(`🔴 ${description}. Expected ${expected}, recived ${recived}`);

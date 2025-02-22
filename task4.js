@@ -612,7 +612,7 @@ function booksGroupedByAuthorsFirstName(data){
 //console.log(booksAlphabetically(newData, "ascending"))
 //console.log(booksChronologically(newData, "ascending"));
 //console.log(booksGroupedByAuthorsLastName(newData));
-console.log(booksGroupedByAuthorsFirstName(newData));
+//console.log(booksGroupedByAuthorsFirstName(newData));
 
 
 /*
