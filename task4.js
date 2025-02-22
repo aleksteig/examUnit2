@@ -449,24 +449,11 @@ function booksGroupedByAuthorsLastName(data){
     }
 
     const listOfBooksGroupedByAuthorNoName = [
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        []
     ]
+
+    for(let i = 0; i < noDuplicateLastNamesList.length; i++){
+        listOfBooksGroupedByAuthorNoName.push([])
+    }
 
     for(let i = 0; i < newListOfBookTitlesAndLastNameAuthors.length; i++){
         let currentAuthorChecked = newListOfBookTitlesAndLastNameAuthors[i][1];
@@ -594,24 +581,11 @@ function booksGroupedByAuthorsFirstName(data){
     }
 
     const listOfBooksGroupedByAuthorNoName = [
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        []
     ]
+
+    for(let i = 0; i < noDuplicateFirstNamesList.length; i++){
+        listOfBooksGroupedByAuthorNoName.push([])
+    }
 
     for(let i = 0; i < newListOfBookTitlesAndFirstNameAuthors.length; i++){
         let currentAuthorChecked = newListOfBookTitlesAndFirstNameAuthors[i][1];
@@ -651,6 +625,8 @@ function booksGroupedByAuthorsFirstName(data){
 //#region Tests ---------------------------------------------------------------------------------------------------------------------
 
 const tests = test("My books are a mess functions");
+
+//#region consts
 
 const exampleData = [{
     "title": "Norse Mythology",
@@ -813,7 +789,7 @@ const testListOfBooksStartingWithThe = [
     'The Alloy of Law',
     'The Perdition Score',
     'The Well of Ascension'
-  ];
+];
 
 const testListOfBooksWrittenByAuthorsWithTInTheirName = 
 [
@@ -822,9 +798,9 @@ const testListOfBooksWrittenByAuthorsWithTInTheirName =
     'The Last Continent',
     'Good Omens',
     'Jingo'
-  ];
+];
 
-const testAlphabeticalBookList = [
+const testAlphabeticalBookListAscending = [
     'Ballistic Kiss',
     'Cytonic',
     'Dead Set',
@@ -852,22 +828,198 @@ const testAlphabeticalBookList = [
     "Zoe's Tale"
 ];
 
-const testAlphabeticalBookListReverse = [];
+const testAlphabeticalBookListDescending = [
+    "Zoe's Tale",
+    'Warbreaker',
+    'The Well of Ascension',
+    'The Way of Kings',
+    "The Shepherd's Crown",
+    'The Prophet',
+    'The Perdition Score',
+    'The Last Continent',
+    'The Dhammapada: A New Translation of the Buddhist Classic with Annotations',
+    'The Book of Disquiet: The Complete Edition',
+    'The Alloy of Law',
+    'Steelheart',
+    'Shadows of Self',
+    'Sandman Slim',
+    'Redshirts',
+    'Norse Mythology',
+    'Night Watch',
+    'Metrophage',
+    'Killing Pretty',
+    'Jingo',
+    'InterWorld',
+    'Good Omens',
+    'Dead Set',
+    'Cytonic',
+    'Ballistic Kiss'
+];
+
+const testChronologicalBookListAscending = [
+    'The Prophet',
+    'Metrophage',
+    'Good Omens',
+    'The Dhammapada: A New Translation of the Buddhist Classic with Annotations',
+    'Jingo',
+    'The Last Continent',
+    'Night Watch',
+    'InterWorld',
+    'The Well of Ascension',
+    "Zoe's Tale",
+    'Sandman Slim',
+    'Warbreaker',
+    'The Way of Kings',
+    'The Alloy of Law',
+    'Redshirts',
+    'Steelheart',
+    'Dead Set',
+    "The Shepherd's Crown",
+    'Killing Pretty',
+    'Shadows of Self',
+    'The Perdition Score',
+    'Norse Mythology',
+    'The Book of Disquiet: The Complete Edition',
+    'Ballistic Kiss',
+    'Cytonic'
+];
+
+const testChronologicalBookListDescending = [
+    'Cytonic',
+    'Ballistic Kiss',
+    'The Book of Disquiet: The Complete Edition',
+    'Norse Mythology',
+    'The Perdition Score',
+    'Shadows of Self',
+    'Killing Pretty',
+    "The Shepherd's Crown",
+    'Dead Set',
+    'Steelheart',
+    'Redshirts',
+    'The Alloy of Law',
+    'The Way of Kings',
+    'Warbreaker',
+    'Sandman Slim',
+    "Zoe's Tale",
+    'The Well of Ascension',
+    'InterWorld',
+    'Night Watch',
+    'The Last Continent',
+    'Jingo',
+    'The Dhammapada: A New Translation of the Buddhist Classic with Annotations',
+    'Good Omens',
+    'Metrophage',
+    'The Prophet'
+];
+
+const testListOfBooksGroupedByAuthorsLastName = [
+    ['Gaiman', ['Norse Mythology']],
+    [
+      'Pratchett',
+      [
+        "The Shepherd's Crown",
+        'Night Watch',
+        'The Last Continent',
+        'Jingo'
+      ]
+    ],
+    ['Pessoa', ['The Book of Disquiet: The Complete Edition'] ],
+    ['Scalzi', ['Redshirts', "Zoe's Tale"]],
+    ['Gibran', ['The Prophet']],
+    [
+      'Kadrey',
+      [
+        'Ballistic Kiss',
+        'Sandman Slim',
+        'Killing Pretty',
+        'Metrophage',
+        'Dead Set',
+        'The Perdition Score'
+      ]
+    ],
+    [
+      'Fronsdal',
+      [
+        'The Dhammapada: A New Translation of the Buddhist Classic with Annotations'
+      ]
+    ],
+    [
+      'Sanderson',
+      [
+        'Steelheart',
+        'Shadows of Self',
+        'Cytonic',
+        'The Way of Kings',
+        'Warbreaker',
+        'The Alloy of Law',
+        'The Well of Ascension'
+      ]
+    ],
+    ['Gaiman & Reaves', ['InterWorld']],
+    ['Gaiman & Pratchett', ['Good Omens']]
+];
+
+const testListOfBooksGroupedByAuthorsFirstName = [
+    [ 'Neil', [ 'Norse Mythology' ] ],
+    [
+      'Terry',
+      [
+        "The Shepherd's Crown",
+        'Night Watch',
+        'The Last Continent',
+        'Jingo'
+      ]
+    ],
+    [ 'Fernando', [ 'The Book of Disquiet: The Complete Edition' ] ],
+    [ 'John', [ 'Redshirts', "Zoe's Tale" ] ],
+    [ 'Kahlil', [ 'The Prophet' ] ],
+    [
+      'Richard',
+      [
+        'Ballistic Kiss',
+        'Sandman Slim',
+        'Killing Pretty',
+        'Metrophage',
+        'Dead Set',
+        'The Perdition Score'
+      ]
+    ],
+    [
+      'Gil',
+      [
+        'The Dhammapada: A New Translation of the Buddhist Classic with Annotations'
+      ]
+    ],
+    [
+      'Brandon',
+      [
+        'Steelheart',
+        'Shadows of Self',
+        'Cytonic',
+        'The Way of Kings',
+        'Warbreaker',
+        'The Alloy of Law',
+        'The Well of Ascension'
+      ]
+    ],
+    [ 'Neil & Michael', [ 'InterWorld' ] ],
+    [ 'Neil & Terry', [ 'Good Omens' ] ]
+];
+
+//#endregion
 
 // Valid inputs
 tests.isListEqual(booksStartingWithThe(exampleData), testListOfBooksStartingWithThe, "This function should only return books that start with 'The'")
-tests.isListEqual(booksWrittenByAuthorsWithTInTheirName(exampleData), testListOfBooksWrittenByAuthorsWithTInTheirName, "This function should give a ")
-tests.isEqual(numberOfBooksWrittenAfter1992(exampleData), 22, "This function should only return books that start with 'The'")
-tests.isEqual(numberOfBooksWrittenBefore2004(exampleData), 7, "This function should only return books that start with 'The'")
-tests.isListEqual(isbnNumberOfGivenAuthor(exampleData, "Neil Gaiman"), [ '0-393-60909-X' ], "This function should only return books that start with 'The'")
-tests.isListEqual(isbnNumberOfGivenAuthor(exampleData, "Terry Pratchett"), [ '0-857-53286-5', '0-385-60265-0', '0-575-06540-0', '0-575-06411-0' ], "This function should only return books that start with 'The'")
-tests.isListEqual(booksAlphabetically(exampleData, "ascending"), testAlphabeticalBookList, "This function should only return books that start with 'The'")
-// tests.isListEqual(booksAlphabetically(exampleData, "descending"), "aa", "This function should only return books that start with 'The'")
-// tests.isListEqual(booksChronologically(exampleData, "ascending"), "aa", "This function should only return books that start with 'The'")
-// tests.isListEqual(booksChronologically(exampleData, "descending"), "aa", "This function should only return books that start with 'The'")
-// tests.isListEqual(booksGroupedByAuthorsLastName(exampleData), "aa", "This function should only return books that start with 'The'")
-// tests.isListEqual(booksGroupedByAuthorsFirstName(exampleData), "aa", "This function should only return books that start with 'The'")
-
-console.log(booksWrittenByAuthorsWithTInTheirName(exampleData));
+tests.isListEqual(booksWrittenByAuthorsWithTInTheirName(exampleData), testListOfBooksWrittenByAuthorsWithTInTheirName, "This function should give all the books that only authors with t in their name have written in the given data")
+tests.isEqual(numberOfBooksWrittenAfter1992(exampleData), 22, "This function should return the amount of books written after 1992 using the given data")
+tests.isEqual(numberOfBooksWrittenBefore2004(exampleData), 7, "This function should return the amount of books written before 2004 using the given data")
+tests.isListEqual(isbnNumberOfGivenAuthor(exampleData, "Neil Gaiman"), [ '0-393-60909-X' ], "This function should return the isbn numbers of the given author")
+tests.isListEqual(isbnNumberOfGivenAuthor(exampleData, "Terry Pratchett"), [ '0-857-53286-5', '0-385-60265-0', '0-575-06540-0', '0-575-06411-0' ], "This function should return the isbn numbers of the given author")
+tests.isListEqual(booksAlphabetically(exampleData, "ascending"), testAlphabeticalBookListAscending, "This function should return all of the books from the given data in an alphabetically ascending order")
+tests.isListEqual(booksAlphabetically(exampleData, "descending"), testAlphabeticalBookListDescending, "This function should return all of the books from the given data in an alphabetically descending order")
+tests.isListEqual(booksChronologically(exampleData, "ascending"), testChronologicalBookListAscending, "This function should return all of the books from the given data in a chronological ascending order")
+tests.isListEqual(booksChronologically(exampleData, "descending"), testChronologicalBookListDescending, "This function should return all of the books from the given data in a chronological descending order")
+tests.isEqual((booksGroupedByAuthorsLastName(exampleData)).toString(), testListOfBooksGroupedByAuthorsLastName.toString(), "This function should return a list of books grouped by the author's last names")
+tests.isEqual((booksGroupedByAuthorsFirstName(exampleData)).toString(), testListOfBooksGroupedByAuthorsFirstName.toString(), "This function should return a list of books grouped by the author's first names")
 
 //#endregion
