@@ -23,7 +23,6 @@ function dosNotThrowError(testFunction, description) {
 
 }
 
-
 function isInRange(recived, expectedLowerBound, expectedUpperBound, description) {
 
     if (recived >= expectedLowerBound && recived <= expectedUpperBound) {
@@ -53,7 +52,11 @@ function isEqual(recived, expected, description) {
 
 function isListEqual(recived, expected, description) {
 
-    if (recived == expected) {
+    const compareFunc = (a, b) =>
+        a.length === b.length &&
+        a.every((element, index) => element == b[index]);
+
+    if (compareFunc(recived, expected)) {
         console.log(`🟢 ${description}`);
     } else {
         console.log(`🔴 ${description}. Expected ${expected}, recived ${recived}`);
