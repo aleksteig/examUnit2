@@ -1,4 +1,5 @@
 import fs from 'fs';
+import test from './test.mjs';
 
 const data = fs.readFileSync('example_files/books.json', { encoding: 'utf8', flag: 'r' });
 
@@ -614,17 +615,178 @@ function booksGroupedByAuthorsFirstName(data){
 //console.log(booksGroupedByAuthorsLastName(newData));
 //console.log(booksGroupedByAuthorsFirstName(newData));
 
+//#region Tests ---------------------------------------------------------------------------------------------------------------------
 
-/*
-Tasks:
-In the file `books.json` there is a listing of books. Write the functions to
-- Return only books starting with `The`
-- Return only books written by authors with a `t` in their name
-- The number of books written after `1992`
-- The number of books written before `2004`
-- Return the isbn number of all the books for a given author.
-- List books alphabetically assending or decendig
-- List books chronologically assending or decendig
-- List books grouped by author last name
-- List books grouped by author first name
-*/
+const tests = test("My books are a mess functions");
+
+const exampleData = `[{
+    "title": "Norse Mythology",
+    "publication_year": 2017,
+    "author": "Neil Gaiman",
+    "isbn": "0-393-60909-X"
+},
+{
+    "title": "The Shepherd's Crown",
+    "publication_year": 2015,
+    "author": "Terry Pratchett",
+    "isbn": "0-857-53286-5"
+},
+{
+    "title": "The Book of Disquiet: The Complete Edition",
+    "publication_year": 2017,
+    "author": "Fernando Pessoa (Translated by Margaret Jull Costa)",
+    "isbn": "978-0811226936"
+},
+{
+    "title": "Redshirts",
+    "publication_year": 2012,
+    "author": "John Scalzi",
+    "isbn": "978-0765334794"
+},
+{
+    "title": "The Prophet",
+    "publication_year": 1923,
+    "author": "Kahlil Gibran",
+    "isbn": "978-0394404288"
+},
+{
+    "title": "Ballistic Kiss",
+    "publication_year": 2020,
+    "author": "Richard Kadrey",
+    "isbn": "978-0062672575"
+},
+{
+    "title": "Sandman Slim",
+    "publication_year": 2009,
+    "author": "Richard Kadrey",
+    "isbn": "978-0061714306"
+},
+{
+    "title": "The Dhammapada: A New Translation of the Buddhist Classic with Annotations",
+    "publication_year": 1993,
+    "author": "Translated by Gil Fronsdal",
+    "isbn": "978-1590303801"
+},
+{
+    "title": "Steelheart",
+    "publication_year": 2013,
+    "author": "Brandon Sanderson",
+    "isbn": "978-0385743563"
+},
+{
+    "title": "Killing Pretty",
+    "publication_year": 2015,
+    "author": "Richard Kadrey",
+    "isbn": "978-0062373106"
+},
+{
+    "title": "InterWorld",
+    "publication_year": 2007,
+    "author": "Neil Gaiman & Michael Reaves",
+    "isbn": "0-06-123896-1"
+},
+{
+    "title": "Metrophage",
+    "publication_year": 1988,
+    "author": "Richard Kadrey",
+    "isbn": "0-671-69759-5"
+},
+{
+    "title": "Zoe's Tale",
+    "publication_year": 2008,
+    "author": "John Scalzi",
+    "isbn": "978-0765316981"
+},
+{
+    "title": "Shadows of Self",
+    "publication_year": 2015,
+    "author": "Brandon Sanderson",
+    "isbn": "978-0765378552"
+},
+{
+    "title": "Cytonic",
+    "publication_year": 2021,
+    "author": "Brandon Sanderson",
+    "isbn": "978-0399555855"
+},
+{
+    "title": "The Way of Kings",
+    "publication_year": 2010,
+    "author": "Brandon Sanderson",
+    "isbn": "978-0765326355"
+},
+{
+    "title": "Night Watch",
+    "publication_year": 2002,
+    "author": "Terry Pratchett",
+    "isbn": "0-385-60265-0"
+},
+{
+    "title": "The Last Continent",
+    "publication_year": 1998,
+    "author": "Terry Pratchett",
+    "isbn": "0-575-06540-0"
+},
+{
+    "title": "Dead Set",
+    "publication_year": 2013,
+    "author": "Richard Kadrey",
+    "isbn": "978-0062283016"
+},
+{
+    "title": "Warbreaker",
+    "publication_year": 2009,
+    "author": "Brandon Sanderson",
+    "isbn": "978-0765320308"
+},
+{
+    "title": "Good Omens",
+    "publication_year": 1990,
+    "author": "Neil Gaiman & Terry Pratchett",
+    "isbn": "0-575-04800-3"
+},
+{
+    "title": "The Alloy of Law",
+    "publication_year": 2011,
+    "author": "Brandon Sanderson",
+    "isbn": "978-0765330420"
+},
+{
+    "title": "The Perdition Score",
+    "publication_year": 2016,
+    "author": "Richard Kadrey",
+    "isbn": "978-0062373267"
+},
+{
+    "title": "Jingo",
+    "publication_year": 1997,
+    "author": "Terry Pratchett",
+    "isbn": "0-575-06411-0"
+},
+{
+    "title": "The Well of Ascension",
+    "publication_year": 2007,
+    "author": "Brandon Sanderson",
+    "isbn": "978-0765316882"
+}]`;
+
+const listOfBooksStartingWithThe = [];
+
+
+// Valid inputs
+// tests.isListEqual(booksStartingWithThe(exampleData), "aa", "This function should only return books that start with 'The'")
+// tests.isListEqual(booksWrittenByAuthorsWithTInTheirName(), "aa", "This function should only return books that start with 'The'")
+// tests.isListEqual(numberOfBooksWrittenAfter1992(), "aa", "This function should only return books that start with 'The'")
+// tests.isListEqual(numberOfBooksWrittenBefore2004(), "aa", "This function should only return books that start with 'The'")
+// tests.isListEqual(isbnNumberOfGivenAuthor(), "aa", "This function should only return books that start with 'The'")
+// tests.isListEqual(isbnNumberOfGivenAuthor(), "aa", "This function should only return books that start with 'The'")
+// tests.isListEqual(booksAlphabetically(), "aa", "This function should only return books that start with 'The'")
+// tests.isListEqual(booksAlphabetically(), "aa", "This function should only return books that start with 'The'")
+// tests.isListEqual(booksChronologically(), "aa", "This function should only return books that start with 'The'")
+// tests.isListEqual(booksChronologically(), "aa", "This function should only return books that start with 'The'")
+// tests.isListEqual(booksGroupedByAuthorsLastName(), "aa", "This function should only return books that start with 'The'")
+// tests.isListEqual(booksGroupedByAuthorsFirstName(), "aa", "This function should only return books that start with 'The'")
+
+console.log(booksStartingWithThe(exampleData));
+
+//#endregion
